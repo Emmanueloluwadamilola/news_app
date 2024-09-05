@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_app/core/presentation/manager/theme_provider.dart';
 import 'package:news_app/core/presentation/theme/app_theme.dart';
 import 'package:news_app/core/presentation/utils/custom_state.dart';
+import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
 import 'package:news_app/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:news_app/features/onboarding/presentation/splash_screen.dart';
@@ -36,9 +36,9 @@ class App extends StatelessWidget with AppTheme {
               initialRoute: SplashScreen.id,
               routes: {
                 SplashScreen.id: (context) => const SplashScreen(),
-                 OnboardingScreen.id: (context) => const OnboardingScreen(),
-                 SignUpScreen.id: (context) => const SignUpScreen(),
-                // LoginScreen.id: (context) => const LoginScreen(),
+                OnboardingScreen.id: (context) => const OnboardingScreen(),
+                SignUpScreen.id: (context) => const SignUpScreen(),
+                SignInScreen.id: (context) => const SignInScreen(),
                 // HomeScreen.id: (context) => const HomeScreen(),
                 // DashboardScreen.id: (context) => const DashboardScreen(),
                 // ForgotPasswordScreen.id: (context) =>

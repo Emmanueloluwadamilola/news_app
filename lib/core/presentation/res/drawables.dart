@@ -8,6 +8,8 @@ const icArrowRight = 'assets/vectors/arrow-right.svg';
 const icPerson = 'assets/vectors/person.svg';
 const icNotification = 'assets/vectors/notification.svg';
 const icSearch = 'assets/vectors/search.svg';
+const icVisibility = 'assets/vectors/ic_visibility.svg';
+const icVisibilityOff = 'assets/vectors/ic_visibility-off.svg';
 
 // Images
 const imgOnboarding1 = 'assets/images/road_1.jpg';
