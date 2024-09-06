@@ -10,6 +10,8 @@ const icNotification = 'assets/vectors/notification.svg';
 const icSearch = 'assets/vectors/search.svg';
 const icVisibility = 'assets/vectors/ic_visibility.svg';
 const icVisibilityOff = 'assets/vectors/ic_visibility-off.svg';
+const icGoogle = 'assets/vectors/google.svg';
+const icFacebook = 'assets/vectors/facebook.svg';
 
 // Images
 const imgOnboarding1 = 'assets/images/road_1.jpg';

@@ -10,9 +10,9 @@ class CustomButton extends StatelessWidget {
     this.activeColor = blueColor,
     this.disabledColor = greyText,
     this.isDisabled = false,
-    this.vertPadding = 20,
+    this.vertPadding = 16,
     this.horizPadding = 0,
-    this.fontSize = 16,
+    this.fontSize = 18,
     this.activeTextColor = Colors.white,
   });
   final VoidCallback onTap;
@@ -36,8 +36,9 @@ class CustomButton extends StatelessWidget {
           horizontal: horizPadding,
         ),
         decoration: BoxDecoration(
-            color: isDisabled ? disabledColor : activeColor,
-            borderRadius: BorderRadius.circular(40),),
+          color: isDisabled ? disabledColor : activeColor,
+          borderRadius: BorderRadius.circular(40),
+        ),
         child: Center(
           child: Text(
             title,

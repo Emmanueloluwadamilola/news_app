@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
+import 'package:news_app/core/presentation/widgets/transparent_button.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
+import 'package:news_app/features/auth/presentation/screens/widgets/forgot_password.dart';
 
 class SignInScreen extends StatefulWidget {
   static const id = 'sign-in';
@@ -106,7 +109,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Clickable(
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return const ForgotPasswordModal();
+                                });
+                          },
                           child: Text(
                             'Forgot password?',
                             style: theme.textTheme.bodyLarge!
@@ -132,6 +141,21 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                     ),
+                    const Gap(30),
+                    TransparentButton(
+                      buttonTitle: 'Sign Up with Google',
+                      onTap: () {},
+                      iconImage: icGoogle,
+                    ),
+                    const Gap(20),
+                    TransparentButton(
+                      buttonTitle: 'Sign Up with Facebook',
+                      onTap: () {},
+                      iconImage: icFacebook,
+                      vertPadding: 8,
+                      iconHeight: 40,
+                    ),
+                    const Gap(30),
                   ],
                 ),
               ),

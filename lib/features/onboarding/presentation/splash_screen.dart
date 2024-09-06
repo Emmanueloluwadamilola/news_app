@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
+import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 import 'package:news_app/features/onboarding/manager/splash_provider.dart';
 import 'package:news_app/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (event == 0) {
           context.pushNamed(OnboardingScreen.id);
         } else if (event == 1) {
-          context.pushNamed(OnboardingScreen.id);
+          context.pushNamed(SignInScreen.id);
         }
       });
     });

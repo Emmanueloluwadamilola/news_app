@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
+import 'package:news_app/core/presentation/widgets/transparent_button.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -143,6 +145,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
+                    const Gap(30),
+                    TransparentButton(
+                      buttonTitle: 'Sign Up with Google',
+                      onTap: () {},
+                      iconImage: icGoogle,
+                    ),
+                    const Gap(20),
+                    TransparentButton(
+                      buttonTitle: 'Sign Up with Facebook',
+                      onTap: () {},
+                      iconImage: icFacebook,
+                      vertPadding: 8,
+                      iconHeight: 40,
+                    ),
+                    const Gap(30),
                   ],
                 ),
               ),
