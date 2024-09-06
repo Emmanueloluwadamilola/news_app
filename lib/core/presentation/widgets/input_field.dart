@@ -2,35 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
+import 'package:news_app/core/presentation/widgets/input_field_state.dart';
 
-class InputField extends StatefulWidget {
+class InputField extends TextFieldParent {
   const InputField({
     super.key,
+    super.value,
+    required super.onChange,
     required this.inputFieldLabel,
     required this.hint,
-    required this.controller,
-    this.isPassword = false,
-    required this.isFocused,
+    super.isPassword,
     required this.icon,
-    required this.focusNode,
-    required this.isControllerEmpty,
     this.keyboardType = TextInputType.name,
   });
   final String inputFieldLabel;
   final String hint;
-  final TextEditingController controller;
-  final bool isPassword;
   final IconData icon;
-  final bool isFocused;
-  final FocusNode focusNode;
-  final bool isControllerEmpty;
   final TextInputType keyboardType;
 
   @override
-  State<InputField> createState() => _InputFieldState();
+  TextFieldState<InputField> createState() => _InputFieldState();
 }
 
-class _InputFieldState extends State<InputField> {
+class _InputFieldState extends TextFieldState<InputField> {
   bool isPasswordVissible = false;
   @override
   Widget build(BuildContext context) {
@@ -52,11 +46,14 @@ class _InputFieldState extends State<InputField> {
             color: const Color(0xFFFBFBFD),
             borderRadius: BorderRadius.circular(22),
             border: Border.all(
-                color: widget.isFocused ? blueColor : Colors.transparent),
+                color: focus.hasFocus ? blueColor : Colors.transparent),
           ),
           child: TextField(
-            controller: widget.controller,
-            focusNode: widget.focusNode,
+            controller: controller,
+            focusNode: focus,
+            onTapOutside: (_) {
+              focus.unfocus();
+            },
             keyboardType: widget.keyboardType,
             textInputAction: TextInputAction.done,
             obscureText: widget.isPassword && !isPasswordVissible,
@@ -66,7 +63,7 @@ class _InputFieldState extends State<InputField> {
             ),
             onTap: () {},
             decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(
+                contentPadding: const EdgeInsets.only(
                   top: 12,
                 ),
                 border: InputBorder.none,
@@ -81,21 +78,20 @@ class _InputFieldState extends State<InputField> {
                           isPasswordVissible
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
-                          color: widget.isControllerEmpty
-                              ? lowEmphasis
-                              : blueColor,
+                          color:
+                              controller.text.isEmpty ? lowEmphasis : blueColor,
                         ),
                       )
                     : null,
                 prefixIcon: Icon(
                   widget.icon,
-                  color: widget.isControllerEmpty ? lowEmphasis : blueColor,
+                  color: controller.text.isEmpty ? lowEmphasis : blueColor,
                 ),
                 hintText: widget.hint,
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   color: lowEmphasis,
                   fontFamily: 'regular',
-                )),
+                ),),
           ),
         ),
       ],

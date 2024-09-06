@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
+import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/svg_image.dart';
@@ -19,11 +19,11 @@ class PopWidget extends StatelessWidget {
                 context.pop();
               }
             : callback!,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8),
+        child: const Padding(
+          padding: EdgeInsets.only(top: 2),
           child: SvgImage(
             asset: icArrowLeft,
-            color: theme.colorScheme.onSurface,
+            color: darkText,
           ),
         ));
   }

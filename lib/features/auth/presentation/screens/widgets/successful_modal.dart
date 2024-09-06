@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
+import 'package:news_app/core/presentation/widgets/circular_icon.dart';
 import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
 import 'package:news_app/core/presentation/widgets/modal_center_drag.dart';
 
-class ForgotPasswordModal extends StatelessWidget {
-  const ForgotPasswordModal({super.key});
+class SuccessfulModal extends StatelessWidget {
+  const SuccessfulModal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,37 +21,28 @@ class ForgotPasswordModal extends StatelessWidget {
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const ModalCenterDrag(),
-            const Gap(20),
+            const Gap(80),
+            const CircularIconWidget(
+              shadowColor: Color(0XFFe6fbef),
+              mainColor: Color(0XFF00d261),
+              icon: Icons.check_circle_rounded,
+            ),
+            const Gap(40),
             Text(
-              'Forgot Password',
+              'Verification Successful',
               style: theme.textTheme.titleLarge!.copyWith(
                 fontSize: 20,
               ),
             ),
             const Gap(8),
             Text(
-              'Please enter your email address',
+              'Your account has been succesfully verified ',
               style: theme.textTheme.labelMedium!.copyWith(fontSize: 16),
             ),
-            const Gap(25),
-            InputField(
-              inputFieldLabel: 'Email',
-              keyboardType: TextInputType.emailAddress,
-              hint: 'mymail@news.com',
-              icon: Icons.mail_outline,
-              onChange: (value) {},
-            ),
-            const Gap(20),
-            CustomButton(
-              onTap: () {
-                context.pop();
-              },
-              title: 'Send Code',
-            ),
-            const Gap(25),
+            const Gap(50),
           ],
         ),
       ),

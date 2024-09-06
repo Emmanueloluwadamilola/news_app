@@ -5,8 +5,8 @@ import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
 import 'package:news_app/core/presentation/widgets/modal_center_drag.dart';
 
-class ForgotPasswordModal extends StatelessWidget {
-  const ForgotPasswordModal({super.key});
+class ChangePasswordModal extends StatelessWidget {
+  const ChangePasswordModal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,30 +25,38 @@ class ForgotPasswordModal extends StatelessWidget {
             const ModalCenterDrag(),
             const Gap(20),
             Text(
-              'Forgot Password',
+              'Change Password',
               style: theme.textTheme.titleLarge!.copyWith(
                 fontSize: 20,
               ),
             ),
             const Gap(8),
             Text(
-              'Please enter your email address',
+              'Enter your new password',
               style: theme.textTheme.labelMedium!.copyWith(fontSize: 16),
             ),
             const Gap(25),
             InputField(
-              inputFieldLabel: 'Email',
-              keyboardType: TextInputType.emailAddress,
-              hint: 'mymail@news.com',
-              icon: Icons.mail_outline,
+              inputFieldLabel: 'Password',
+              hint: '*********',
+              icon: Icons.lock_outline,
               onChange: (value) {},
+              isPassword: true,
+            ),
+            const Gap(20),
+            InputField(
+              inputFieldLabel: 'Confirm Password',
+              hint: '*********',
+              icon: Icons.lock_outline,
+              onChange: (value) {},
+              isPassword: true,
             ),
             const Gap(20),
             CustomButton(
               onTap: () {
                 context.pop();
               },
-              title: 'Send Code',
+              title: 'Change Password',
             ),
             const Gap(25),
           ],

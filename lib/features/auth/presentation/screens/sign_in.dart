@@ -9,6 +9,7 @@ import 'package:news_app/core/presentation/widgets/input_field.dart';
 import 'package:news_app/core/presentation/widgets/transparent_button.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
 import 'package:news_app/features/auth/presentation/screens/widgets/forgot_password.dart';
+import 'package:news_app/features/home/presentation/screen/interest.dart';
 
 class SignInScreen extends StatefulWidget {
   static const id = 'sign-in';
@@ -19,38 +20,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final mailController = TextEditingController();
-  final mailFocus = FocusNode();
-  final passwordController = TextEditingController();
-  final passwordFocus = FocusNode();
-  bool isPasswordFocused = false;
-  bool isPasswordControllerEmpty = true;
-  bool isMailFocused = false;
-  bool isMailControllerEmpty = true;
-
   @override
   void initState() {
-    mailController.addListener(() {
-      setState(() {
-        isMailControllerEmpty = mailController.text.isEmpty;
-      });
-    });
-
-    mailFocus.addListener(() {
-      setState(() {
-        isMailFocused = mailFocus.hasFocus;
-      });
-    });
-    passwordFocus.addListener(() {
-      setState(() {
-        isPasswordFocused = passwordFocus.hasFocus;
-      });
-    });
-    passwordController.addListener(() {
-      setState(() {
-        isPasswordControllerEmpty = passwordController.text.isEmpty;
-      });
-    });
     // TODO: implement initState
     super.initState();
   }
@@ -84,25 +55,19 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Column(
                   children: [
                     InputField(
+                      onChange: (value) {},
                       inputFieldLabel: 'Email',
                       hint: 'Enter username',
-                      controller: mailController,
                       icon: Icons.mail_outline,
-                      focusNode: mailFocus,
-                      isFocused: isMailFocused,
-                      isControllerEmpty: isMailControllerEmpty,
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const Gap(30),
                     InputField(
                       inputFieldLabel: 'Password',
                       hint: '*********',
-                      controller: passwordController,
                       icon: Icons.lock_outline,
-                      focusNode: passwordFocus,
-                      isFocused: isPasswordFocused,
-                      isControllerEmpty: isPasswordControllerEmpty,
                       isPassword: true,
+                      onChange: (value) {},
                     ),
                     const Gap(15),
                     Row(
@@ -112,7 +77,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           onPressed: () {
                             showModalBottomSheet(
                                 context: context,
+                                isScrollControlled: true,
+                                isDismissible: false,
                                 builder: (context) {
+                                  // return const ChangePasswordModal();
                                   return const ForgotPasswordModal();
                                 });
                           },
@@ -126,7 +94,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     const Gap(30),
                     CustomButton(
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(InterestScreen.id);
+                      },
                       title: 'Login',
                     ),
                     const Gap(20),
@@ -143,13 +113,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     const Gap(30),
                     TransparentButton(
-                      buttonTitle: 'Sign Up with Google',
+                      buttonTitle: 'Sign In with Google',
                       onTap: () {},
                       iconImage: icGoogle,
                     ),
                     const Gap(20),
                     TransparentButton(
-                      buttonTitle: 'Sign Up with Facebook',
+                      buttonTitle: 'Sign In with Facebook',
                       onTap: () {},
                       iconImage: icFacebook,
                       vertPadding: 8,

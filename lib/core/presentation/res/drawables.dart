@@ -17,3 +17,11 @@ const icFacebook = 'assets/vectors/facebook.svg';
 const imgOnboarding1 = 'assets/images/road_1.jpg';
 const imgOnboarding2 = 'assets/images/sky_scrapper.jpg';
 const imgOnboarding3 = 'assets/images/desert.jpg';
+
+const imgFootball = 'assets/images/football.png';
+const imgScience = 'assets/images/science.png';
+const imgTravel = 'assets/images/airplane.png';
+const imgFinance = 'assets/images/finance.png';
+const imgBusiness = 'assets/images/business.png';
+const imgTechnology = 'assets/images/technology.png';
+const imgCrypto = 'assets/images/crypto.png';

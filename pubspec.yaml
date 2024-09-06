@@ -24,6 +24,9 @@ dependencies:
   flutter_svg: ^2.0.10+1
   gap: ^3.0.1
   sprung: ^3.0.1
+  otp_text_field:
+    git:
+      url: https://github.com/Emmanueloluwadamilola/OTPTextField.git
 
 dev_dependencies:
   flutter_test:
