@@ -10,14 +10,14 @@ class AppToolBar extends StatelessWidget {
     required this.title,
     this.isPrefix = false,
     this.isSuffix = false,
-    this.icon,
+    this.suffixIcon,
     this.suffixOnTap,
   });
   final String title;
   final bool isPrefix;
   final bool isSuffix;
   VoidCallback? suffixOnTap;
-  IconData? icon;
+  Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +36,15 @@ class AppToolBar extends StatelessWidget {
             ? Clickable(
                 onPressed: suffixOnTap!,
                 child: Container(
-                  height: 32,
-                  width: 32,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: lowEmphasis,
+                    height: 44,
+                    width: 44,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 8,
                     ),
-                  ),
-                  child: Icon(
-                    icon!,
-                    color: darkText,
-                  ),
-                ),
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: whiteColor),
+                    child: suffixIcon!),
               )
             : Container(
                 height: 32,
@@ -56,7 +52,7 @@ class AppToolBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: theme.scaffoldBackgroundColor,
                 ),
-              )
+              ),
       ],
     );
   }

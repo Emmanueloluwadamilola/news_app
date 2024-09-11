@@ -47,7 +47,7 @@ class BottomNavBar extends StatefulWidget {
     this.iconSize = 24.0,
     this.onTabSelected,
   }) {
-    assert(items?.length == 2 || items?.length == 5);
+    assert(items?.length == 2 || items?.length == 4);
   }
 
   final List<BottomNavBarItem>? items;

@@ -12,8 +12,9 @@ class TransparentButton extends StatelessWidget {
       this.fontSize = 16,
       this.titleColor = darkText,
       required this.onTap,
-      required this.iconImage,
+       this.iconImage,
       this.iconHeight,
+      this.isIcon = true,
       super.key});
   final double vertPadding;
   final double horizPadding;
@@ -21,8 +22,9 @@ class TransparentButton extends StatelessWidget {
   final double fontSize;
   final Color titleColor;
   final VoidCallback onTap;
-  final String iconImage;
+  final String? iconImage;
   final double? iconHeight;
+  final bool isIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +45,10 @@ class TransparentButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgImage(
-                asset: iconImage,
+            isIcon ?  SvgImage(
+                asset: iconImage!,
                 height: iconHeight,
-              ),
+              ): const Gap(0),
               const Gap(8),
               Text(
                 buttonTitle,

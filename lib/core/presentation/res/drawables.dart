@@ -12,11 +12,15 @@ const icVisibility = 'assets/vectors/ic_visibility.svg';
 const icVisibilityOff = 'assets/vectors/ic_visibility-off.svg';
 const icGoogle = 'assets/vectors/google.svg';
 const icFacebook = 'assets/vectors/facebook.svg';
+const icSetting = 'assets/vectors/ic_settings.svg';
 
 // Images
 const imgOnboarding1 = 'assets/images/road_1.jpg';
 const imgOnboarding2 = 'assets/images/sky_scrapper.jpg';
 const imgOnboarding3 = 'assets/images/desert.jpg';
+
+const imgNews = 'assets/images/road_2.jpg';
+const imgTexture = 'assets/images/texture_2.jpeg';
 
 const imgFootball = 'assets/images/football.png';
 const imgScience = 'assets/images/science.png';

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
+import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
+import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/features/home/presentation/manager/home_provider.dart';
+import 'package:news_app/features/home/presentation/screen/index_screen.dart';
 import 'package:news_app/features/home/presentation/screen/widgets/interest_card.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +18,6 @@ class InterestScreen extends StatefulWidget {
 }
 
 class _InterestScreenState extends State<InterestScreen> {
-  bool isCardSelected = false;
-  int? selectedIndex;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -41,10 +42,9 @@ class _InterestScreenState extends State<InterestScreen> {
                 'Pick topics to influence the stories you see',
                 style: theme.textTheme.labelMedium!.copyWith(fontSize: 16),
               ),
-              const Gap(20),
+              const Gap(30),
               Expanded(
                 child: SingleChildScrollView(
-                  //scrollDirection: Axis.horizontal,
                   child: Wrap(
                       children:
                           List.generate(state.interestImage.length, (index) {
@@ -55,21 +55,23 @@ class _InterestScreenState extends State<InterestScreen> {
                         right: 12,
                         bottom: 14,
                       ),
-                      child: Clickable(
-                        onPressed: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                        child: InterestCard(
-                          isCardSelected: index == selectedIndex,
-                          imagename: image,
-                          cardName: interestName,
-                        ),
+                      child: InterestCard(
+                        index: index,
+                        imagename: image,
+                        cardName: interestName,
                       ),
                     );
                   })),
                 ),
+              ),
+              const Gap(30),
+              CustomButton(
+                isDisabled: state.selectedInterest.isEmpty,
+                onTap: () async {
+                  await provider.setInterest();
+                  context.pushNamed(IndexScreen.id);
+                },
+                title: 'Proceed',
               ),
             ],
           ),

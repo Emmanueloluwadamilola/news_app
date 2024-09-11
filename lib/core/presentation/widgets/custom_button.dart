@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Clickable(
-      onPressed: onTap,
+      onPressed: isDisabled ? () {} : onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: vertPadding,

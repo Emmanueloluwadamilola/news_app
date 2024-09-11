@@ -6,10 +6,15 @@ import 'package:news_app/core/presentation/utils/custom_state.dart';
 import 'package:news_app/features/auth/presentation/screens/otp_screen.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
+import 'package:news_app/features/explore/presentation/manager/explore_provider.dart';
 import 'package:news_app/features/home/presentation/manager/home_provider.dart';
+import 'package:news_app/features/home/presentation/screen/index_screen.dart';
 import 'package:news_app/features/home/presentation/screen/interest.dart';
 import 'package:news_app/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:news_app/features/onboarding/presentation/splash_screen.dart';
+import 'package:news_app/features/profile/presentation/screens/change_password.dart';
+import 'package:news_app/features/profile/presentation/screens/edit_profile.dart';
+import 'package:news_app/features/profile/presentation/screens/settings.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget with AppTheme {
@@ -18,7 +23,10 @@ class App extends StatelessWidget with AppTheme {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => HomeProvider()),],
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => ExploreProvider()),
+      ],
       child: ChangeNotifierProvider(
         create: (_) => ThemeProvider(),
         child: Consumer<ThemeProvider>(
@@ -46,6 +54,12 @@ class App extends StatelessWidget with AppTheme {
                   SignInScreen.id: (context) => const SignInScreen(),
                   OtpScreen.id: (context) => const OtpScreen(),
                   InterestScreen.id: (context) => const InterestScreen(),
+                  IndexScreen.id: (context) => const IndexScreen(),
+                  SettingsScreen.id: (context) => const SettingsScreen(),
+                  EditProfileScreen.id: (context) => const EditProfileScreen(),
+                  ChangePasswordScreen.id: (context) =>
+                      const ChangePasswordScreen(),
+
                   // HomeScreen.id: (context) => const HomeScreen(),
                   // DashboardScreen.id: (context) => const DashboardScreen(),
                   // ForgotPasswordScreen.id: (context) =>

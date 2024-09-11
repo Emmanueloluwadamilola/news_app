@@ -8,7 +8,7 @@ class HomeState {
     'Science',
     'Tech',
     'Finance',
-    'Travel'
+    'Travel',
   ];
 
   List<String> interestImage = [
@@ -20,4 +20,19 @@ class HomeState {
     imgFinance,
     imgTravel,
   ];
+
+  List<String> newscategory = [
+    'All',
+    'Sport',
+    'Crypto',
+    'Business',
+    'Science',
+    'Tech',
+    'Finance',
+    'Travel',
+  ];
+
+  List<int> selectedInterest = [];
+
+  int selectedIndex = 0;
 }

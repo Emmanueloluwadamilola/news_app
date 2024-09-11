@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:news_app/core/di/core_module_container.dart';
+import 'package:news_app/core/domain/util/util.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
@@ -9,7 +11,9 @@ import 'package:news_app/core/presentation/widgets/input_field.dart';
 import 'package:news_app/core/presentation/widgets/transparent_button.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
 import 'package:news_app/features/auth/presentation/screens/widgets/forgot_password.dart';
+import 'package:news_app/features/home/presentation/screen/index_screen.dart';
 import 'package:news_app/features/home/presentation/screen/interest.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   static const id = 'sign-in';
@@ -20,6 +24,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final _pref = getIt.getAsync<SharedPreferences>();
   @override
   void initState() {
     // TODO: implement initState
@@ -95,7 +100,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     const Gap(30),
                     CustomButton(
                       onTap: () {
-                        context.pushNamed(InterestScreen.id);
+                        _pref.then((value) {
+                          if (value.getBool(interestKey) == null) {
+                            context.pushNamed(InterestScreen.id);
+                            // return;
+                          } else {
+                            context.pushNamed(IndexScreen.id);
+                          }
+                        });
                       },
                       title: 'Login',
                     ),
