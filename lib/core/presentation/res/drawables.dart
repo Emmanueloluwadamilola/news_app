@@ -21,6 +21,7 @@ const imgOnboarding3 = 'assets/images/desert.jpg';
 
 const imgNews = 'assets/images/road_2.jpg';
 const imgTexture = 'assets/images/texture_2.jpeg';
+const imgAppLogo = 'assets/images/app_logo.png';
 
 const imgFootball = 'assets/images/football.png';
 const imgScience = 'assets/images/science.png';

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "867883904457",
+    "project_id": "note-app-fc524",
+    "storage_bucket": "note-app-fc524.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867883904457:android:0e3c7dbd064c54249c0c18",
+        "android_client_info": {
+          "package_name": "com.example.news_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqztRMRaC1Nh5DTWYnNJUSk2R9DNoFUXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,8 @@ import 'package:news_app/features/explore/presentation/manager/explore_provider.
 import 'package:provider/provider.dart';
 
 class CategoryButton extends StatelessWidget {
-  const CategoryButton({super.key, required this.index, required this.isButtonSelected});
+  const CategoryButton(
+      {super.key, required this.index, required this.isButtonSelected});
   final int index;
   final bool isButtonSelected;
 
@@ -22,7 +23,7 @@ class CategoryButton extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: isButtonSelected
-                ? Colors.black
+                ? blueColor
                 : const Color.fromARGB(
                     255,
                     242,

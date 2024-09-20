@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 
-class ApiResult<T>{
+class ApiResult<T> {
   final T? data;
   final dynamic error;
 
@@ -17,16 +18,16 @@ class ApiResult<T>{
   T? getOrElse([T? Function(Object)? defaultValue]) {
     if (data == null) {
       return defaultValue == null ? null : defaultValue(toError());
-    }else{
+    } else {
       return data!;
     }
   }
 
-  String toError(){
+  String toError() {
     final e = error!;
-    switch(e.runtimeType) {
+    switch (e.runtimeType) {
       case DioException _:
-        try{
+        try {
           if (e.response?.data != null && e.response?.data != '') {
             Logger().e('ERROR: -> ${e.response!.data['error']}');
             if (e.response!.data['message'] != null) {
@@ -38,18 +39,22 @@ class ApiResult<T>{
               return error;
             }
           }
-        } catch(e){
+        } catch (e) {
           return 'Oops! Service is temporarily unavailable';
         }
         break;
       case TimeoutException _:
         return 'Request time out';
+      case FirebaseAuthException e:
+        return e.code;
       case SocketException _:
         return 'Connection could not be established. Check internet';
 
-      case FormatException _: return (e as FormatException).message;
+      case FormatException _:
+        return (e as FormatException).message;
 
-      case const (String) : return e;
+      case const (String):
+        return e;
     }
     return 'Oops! an error occurred an request could not be completed';
   }

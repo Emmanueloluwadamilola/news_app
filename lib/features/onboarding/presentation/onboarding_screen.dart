@@ -5,6 +5,7 @@ import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/custom_image.dart';
+import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
 import 'package:news_app/features/onboarding/manager/onboarding_provider.dart';
 import 'package:provider/provider.dart';
@@ -129,7 +130,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       const Gap(20),
                       Clickable(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pushNamed(SignInScreen.id);
+                        },
                         child: Text(
                           'Already have an account?',
                           style: theme.textTheme.bodyLarge!

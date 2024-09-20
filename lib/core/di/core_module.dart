@@ -1,27 +1,25 @@
 import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
+import 'package:news_app/services/api_service/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 @module
 abstract class CoreModule {
-  Dio dio() {
-    final dio = Dio();
-    dio.interceptors.add(AwesomeDioInterceptor());
-
-    // Add Interceptor to handle token expiration
-    dio.interceptors.add(
-      InterceptorsWrapper(
-        onError: (error, handler) {
-          if (error.response?.statusCode == 401 &&
-              error.response?.data['message'] == 'Unauthorized') {
-            // _handleTokenExpiration();
-          }
-          return handler.next(error);
-        },
-      ),
-    );
+   Dio dio(){
+    final dio = Dio()
+    ..interceptors.add(AwesomeDioInterceptor());
     return dio;
   }
+
+
+  @singleton
+  ApiManager get apiManager => ApiManager(dio());
+
+
+@singleton
+  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
 
   Future<SharedPreferences> preferences() {
     return SharedPreferences.getInstance();

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
@@ -5,10 +6,14 @@ import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/custom_button.dart';
+import 'package:news_app/core/presentation/widgets/custom_loading_widget.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
+import 'package:news_app/core/presentation/widgets/provider_widget.dart';
 import 'package:news_app/core/presentation/widgets/transparent_button.dart';
+import 'package:news_app/features/auth/presentation/manager/auth_provider.dart';
 import 'package:news_app/features/auth/presentation/screens/otp_screen.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const id = 'sign-up';
@@ -19,26 +24,35 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  AuthenticationProvider? _provider;
   @override
   void initState() {
-    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _provider?.listen((event) {
+        if (event == 1) {
+          context.pushNamed(OtpScreen.id);
+        }
+      });
+    });
     super.initState();
   }
 
   @override
+  void dispose() {
+    _provider?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Gap(30),
+    return ProviderWidget(
+        provider: AuthenticationProvider(),
+        children: (provider, theme) {
+          _provider ??= provider;
+          final state = provider.state;
+          final customLoader = LoadingOverlay.of(context);
+          return [
+            const Gap(10),
             Text(
               'Create Account',
               style: theme.textTheme.titleLarge!.copyWith(fontSize: 24),
@@ -54,10 +68,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
                     InputField(
-                      inputFieldLabel: 'Username',
-                      hint: 'Enter username',
+                      inputFieldLabel: 'Name',
+                      hint: 'Enter your name',
                       icon: Icons.person_outlined,
-                      onChange: (value) {},
+                      onChange: (value) {
+                        setState(() {
+                          state.name = value;
+                        });
+                      },
                     ),
                     const Gap(30),
                     InputField(
@@ -65,7 +83,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hint: 'Enter username',
                       icon: Icons.mail_outline,
                       keyboardType: TextInputType.emailAddress,
-                      onChange: (value) {},
+                      onChange: (value) {
+                        setState(() {
+                          state.email = value;
+                        });
+                      },
                     ),
                     const Gap(30),
                     InputField(
@@ -73,14 +95,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hint: '*********',
                       icon: Icons.lock_outline,
                       isPassword: true,
-                      onChange: (value) {},
+                      onChange: (value) {
+                        setState(() {
+                          state.password = value;
+                        });
+                      },
                     ),
                     const Gap(30),
                     CustomButton(
                       onTap: () {
-                        context.pushNamed(OtpScreen.id);
+                        provider.signUp().then((value) {
+                          customLoader.showLoader();
+                        });
                       },
                       title: 'Create Account',
+                      isDisabled: state.name == '' ||
+                          state.email == '' ||
+                          state.password == '',
                     ),
                     const Gap(20),
                     Clickable(
@@ -113,9 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             )
-          ],
-        ),
-      ),
-    );
+          ];
+        });
   }
 }

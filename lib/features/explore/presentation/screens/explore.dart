@@ -6,6 +6,7 @@ import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/widgets/app_tool_bar.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/custom_image.dart';
+import 'package:news_app/core/presentation/widgets/news_card.dart';
 import 'package:news_app/core/presentation/widgets/svg_image.dart';
 import 'package:news_app/features/explore/presentation/manager/explore_provider.dart';
 import 'package:news_app/features/explore/presentation/screens/widgets/category_button.dart';
@@ -116,12 +117,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                         const Gap(15),
                         SizedBox(
-                          height: 280,
+                          height: 180,
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: 4,
                               itemBuilder: (context, index) {
-                                return const HotNewsWidget();
+                                return const Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: NewsCardWidget(
+                                    isExplore: true,
+                                  ),
+                                );
                               }),
                         ),
                         const Gap(15),
