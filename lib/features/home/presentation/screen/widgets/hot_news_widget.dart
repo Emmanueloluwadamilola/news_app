@@ -7,17 +7,18 @@ import 'package:news_app/core/presentation/widgets/custom_image.dart';
 import 'package:news_app/core/presentation/widgets/svg_image.dart';
 
 class HotNewsWidget extends StatelessWidget {
-  const HotNewsWidget({
-    super.key,
-    required this.title,
-    required this.author,
-    required this.imageUrl,
-    required this.timeAgo,
-  });
+  const HotNewsWidget(
+      {super.key,
+      required this.title,
+      required this.author,
+      required this.imageUrl,
+      required this.timeAgo,
+      required this.content});
   final String title;
-  final String author;
+  final String? author;
   final String? imageUrl;
   final String? timeAgo;
+  final String content;
 
   @override
   Widget build(BuildContext context) {
@@ -27,28 +28,31 @@ class HotNewsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Container(
-              height: 200,
-              width: double.infinity,
-              //  258,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(
-                  16,
+          Hero(
+            tag: imageUrl!,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                height: 200,
+                width: double.infinity,
+                //  258,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    16,
+                  ),
                 ),
+                child: imageUrl != 'null'
+                    ? Image.network(
+                        imageUrl!,
+                        fit: BoxFit.fill,
+                      )
+                    : const CustomImage(
+                        asset: imgNews,
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                      ),
               ),
-              child: imageUrl != null
-                  ? Image.network(
-                      imageUrl!,
-                      fit: BoxFit.fill,
-                    )
-                  : const CustomImage(
-                      asset: imgNews,
-                      fit: BoxFit.fill,
-                      width: double.infinity,
-                    ),
             ),
           ),
           const Gap(10),
@@ -66,24 +70,18 @@ class HotNewsWidget extends StatelessWidget {
           ),
           const Gap(8),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                radius: 16,
-                backgroundColor: Colors.grey[100],
-                child: const SvgImage(
-                  asset: icProfile,
-                  color: blueColor,
-                  height: 18,
+              Flexible(
+                child: Text(
+                  author == 'null' ? 'Author' : author!,
+                  maxLines: 1,
+                  style: theme.textTheme.labelMedium!.copyWith(
+                    fontSize: 14,
+                  ),
                 ),
               ),
-              const Gap(5),
-              Text(
-                author,
-                style: theme.textTheme.labelMedium!.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              const Spacer(),
+              // const Spacer(),
               // const Icon(
               //   Icons.schedule_outlined,
               //   color: lowEmphasis,
@@ -91,6 +89,7 @@ class HotNewsWidget extends StatelessWidget {
               // ),
               Text(
                 timeAgo ?? '',
+                textAlign: TextAlign.end,
                 style: theme.textTheme.labelMedium!.copyWith(
                   fontSize: 12,
                 ),

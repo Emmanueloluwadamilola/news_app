@@ -1,15 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:news_app/core/di/core_module_container.dart';
+
+import 'package:news_app/core/config/config.dart';
+
 import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/features/home/domain/entities/model/fetch_news.dart';
+import 'package:news_app/features/home/domain/entities/model/latest_news.dart';
+import 'package:news_app/features/home/domain/entities/model/news_source.dart';
 
 class HomeState {
   bool isLoading = false;
+  bool newsSorceLoading = false;
   String? userName =
-      FirebaseAuth.instance.currentUser?.displayName!.split(' ')[0];
+      user!.displayName?.split(' ')[0];
+
+  List<LatestNews> latestNews = [];
   List<Article> news = [];
   List<Article> breakingNews = [];
+  List<Article> forYou = [];
   List<String> interestName = [
     'Sport',
     'Crypto',
@@ -19,7 +25,7 @@ class HomeState {
     'Finance',
     'Travel',
   ];
-
+  List<NewsSource> newsMedia = [];
   List<String> interestImage = [
     imgFootball,
     imgCrypto,
@@ -30,16 +36,16 @@ class HomeState {
     imgTravel,
   ];
 
-  List<String> newscategory = [
-    'All',
-    'Sport',
-    'Crypto',
-    'Business',
-    'Science',
-    'Tech',
-    'Finance',
-    'Travel',
-  ];
+  // List<String> newscategory = [
+  //   'All',
+  //   'Sport',
+  //   'Crypto',
+  //   'Business',
+  //   'Science',
+  //   'Tech',
+  //   'Finance',
+  //   'Travel',
+  // ];
 
   List<int> selectedInterest = [];
 

@@ -4,7 +4,10 @@ import 'package:news_app/core/domain/util/util.dart';
 import 'package:news_app/core/presentation/manager/custom_provider.dart';
 import 'package:news_app/features/home/domain/repository/home_repository.dart';
 import 'package:news_app/features/home/domain/usecase/fetch_news_usecase.dart';
+import 'package:news_app/features/home/domain/usecase/latest_news_usecase.dart';
+import 'package:news_app/features/home/domain/usecase/news_source_usecase.dart';
 import 'package:news_app/features/home/presentation/manager/home_state.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeProvider extends CustomProvider {
@@ -46,12 +49,16 @@ class HomeProvider extends CustomProvider {
         add(1);
 
         for (int i = 0; i < response.length; i++) {
-          if (response[i].content != null || response[i].urlToImage != null) {
+          if (response[i].content != 'null' ||
+              response[i].urlToImage != null ||
+              response[i].title != '[Removed]' ||
+              response[i].description != '[Removed]') {
             state.news.add(response[i]);
           }
         }
 
         state.breakingNews = state.news.take(10).toList();
+        state.forYou = state.news.sublist(10);
 
         Logger().i('>>>>>>>>>>> news fetched');
       }
@@ -59,5 +66,53 @@ class HomeProvider extends CustomProvider {
       state.isLoading = false;
       notifyListeners();
     });
+  }
+
+  fetchLatestNews() {
+    state.isLoading = true;
+    notifyListeners();
+
+    LatestNewsUsecase(repo).invoke().then((value) {
+      final response = value.getOrElse((error) {
+        add(error);
+        return null;
+      });
+
+      if (response != null) {
+        add(2);
+        state.latestNews = response;
+        Logger().i('>>>>>>>>>>> Latest news fetched');
+      }
+
+      state.isLoading = false;
+      notifyListeners();
+    });
+  }
+
+  shareNews(String url) async {
+    await Share.shareUri(Uri.parse(url));
+  }
+
+  fetchNewsSource() async {
+    state.newsSorceLoading = true;
+    notifyListeners();
+
+    NewsSourceUsecase(repo).invoke().then(
+      (value) {
+        final response = value.getOrElse((error) {
+          add(error);
+          return null;
+        });
+
+        if (response != null) {
+          
+          state.newsMedia = response;
+          Logger().i('>>>>>>>>>>> news sources fetched');
+        
+        }
+         state.newsSorceLoading = false;
+      notifyListeners();
+      },
+    );
   }
 }

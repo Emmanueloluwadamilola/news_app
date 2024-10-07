@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:logger/logger.dart';
 import 'package:news_app/core/di/core_module_container.dart';
 import 'package:news_app/core/domain/util/util.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
-import 'package:news_app/core/presentation/widgets/app_logo.dart';
-import 'package:flutter/widgets.dart';
 import 'package:news_app/core/presentation/widgets/custom_image.dart';
-import 'package:news_app/core/presentation/widgets/svg_image.dart';
 
 class LoadingOverlay {
   BuildContext _context;

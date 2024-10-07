@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:news_app/core/config/config.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/app_tool_bar.dart';
+import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/custom_image.dart';
 import 'package:news_app/core/presentation/widgets/svg_image.dart';
@@ -48,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       shape: BoxShape.circle,
                       color: blueColor,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.person_outline,
                       color: whiteColor,
                     ),
@@ -61,19 +63,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: AppToolBar(
                     title: 'Profile',
                     isSuffix: true,
-                    suffixIcon: const SvgImage(
-                      asset: icSetting,
+                    suffixIcon: Clickable(
+                      onPressed: (){
+                        context.pushNamed(SettingsScreen.id);
+                      },
+                      child: const SvgImage(
+                        asset: icSetting,
+                      ),
                     ),
-                    suffixOnTap: () {
-                      context.pushNamed(SettingsScreen.id);
-                    },
+                   
                   ),
                 ),
               ],
             ),
           ),
           Text(
-            'Emmanuel Ola',
+            user!.displayName ??'user',
             style: theme.textTheme.titleLarge!.copyWith(fontSize: 15),
           ),
           const Gap(20),

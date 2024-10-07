@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
@@ -13,7 +12,6 @@ import 'package:news_app/core/presentation/widgets/transparent_button.dart';
 import 'package:news_app/features/auth/presentation/manager/auth_provider.dart';
 import 'package:news_app/features/auth/presentation/screens/otp_screen.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
-import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const id = 'sign-up';

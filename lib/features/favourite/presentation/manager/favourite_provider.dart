@@ -1,0 +1,113 @@
+import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
+
+import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:news_app/core/di/core_module_container.dart';
+import 'package:news_app/core/presentation/manager/custom_provider.dart';
+import 'package:news_app/features/favourite/domain/entity/model/favourite_model.dart';
+import 'package:news_app/features/favourite/domain/repository/favourite_repository.dart';
+import 'package:news_app/features/favourite/domain/usecase/add_favourite_usecase.dart';
+import 'package:news_app/features/favourite/domain/usecase/delete_favorite_usecase.dart';
+import 'package:news_app/features/favourite/domain/usecase/fetch_favourite_news_usecase.dart';
+import 'package:news_app/features/favourite/presentation/manager/favourite_state.dart';
+
+class FavouriteProvider extends CustomProvider {
+  final repo = getIt.get<FavouriteRepository>();
+  var state = FavouriteState();
+
+  addFavourite({
+    required String source,
+    required String title,
+    required String content,
+    required String author,
+    required String url,
+    required String urlToImage,
+    required DateTime publishedAt,
+  }) {
+    state.favouriteNews.add(NewsArticle(
+        source: source,
+        author: author,
+        title: title,
+        url: url,
+        urlToImage: urlToImage,
+        publishedAt: publishedAt,
+        content: content));
+    state.isFavourite = true;
+    notifyListeners();
+
+    AddFavouriteUsecase(
+      repo,
+      NewsArticle(
+        source: source,
+        author: author,
+        title: title,
+        url: url,
+        urlToImage: urlToImage,
+        publishedAt: publishedAt,
+        content: content,
+      ),
+    ).invoke().then((value) {
+      final response = value.getOrElse((error) {
+        add(error);
+        state.isFavourite = false;
+        notifyListeners();
+        return;
+      });
+      if (response != null) {
+        add(0);
+         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> add favourite');
+      }
+    });
+  }
+
+  deleteFavourite({required String title}) {
+    state.favouriteNews.removeWhere(
+      (item) => item.title == title,
+    );
+    state.isFavourite = false;
+    notifyListeners();
+
+    DeleteFavoriteUsecase(repo, ArticleId(title: title)).invoke().then((value) {
+      final response = value.getOrElse((error) {
+        add(error);
+        state.isFavourite = false;
+        notifyListeners();
+        return;
+      });
+
+      if (response != null) {
+        add(1);
+         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> delete fvaaourite');
+      }
+    });
+  }
+
+  fetchFavouriteNews() {
+    state.isLoading = true;
+    notifyListeners();
+
+    FetchFavouriteNewsUsecase(repo).invoke().then((value) {
+      final response = value.getOrElse((error) {
+        add(error);
+        return;
+      });
+
+      if (response != null) {
+        add(response);
+        state.favouriteNews = response;
+         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> fetch favourite news');
+      }
+      state.isLoading = false;
+      notifyListeners();
+    });
+  }
+
+  setFavourite({required String title}) {
+    for (int i = 0; i < state.favouriteNews.length; i++) {
+      state.favouriteNews[i].title!.contains(title);
+      state.isFavourite = true;
+      notifyListeners();
+    }
+    Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  }
+}

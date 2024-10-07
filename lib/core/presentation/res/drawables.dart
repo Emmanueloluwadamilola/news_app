@@ -13,6 +13,7 @@ const icVisibilityOff = 'assets/vectors/ic_visibility-off.svg';
 const icGoogle = 'assets/vectors/google.svg';
 const icFacebook = 'assets/vectors/facebook.svg';
 const icSetting = 'assets/vectors/ic_settings.svg';
+const icEmpty = 'assets/vectors/empty.svg';
 
 // Images
 const imgOnboarding1 = 'assets/images/road_1.jpg';

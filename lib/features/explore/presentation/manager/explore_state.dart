@@ -1,14 +1,25 @@
+import 'package:news_app/features/explore/domain/entities/param/query_param.dart';
+import 'package:news_app/features/home/domain/entities/model/fetch_news.dart';
+
 class ExploreState {
   List<String> newscategory = [
-    'All',
-    'Sport',
-    'Crypto',
+    'General',
+    'Sports',
     'Business',
+    'Entertainment',
     'Science',
-    'Tech',
-    'Finance',
-    'Travel',
+    'Technology',
+    'Health'
   ];
 
-  List<String> newsMedia = ['CNN', 'BBC', 'MSN', 'CBNC', 'Telegraph'];
+  int selectedIndex = 0;
+  bool isLoading = false;
+  bool isSearching = false;
+  String keyword = '';
+
+  List<Article> newsFeed = [];
+
+  QueryPayload toQuery() {
+    return QueryPayload(query: keyword);
+  }
 }

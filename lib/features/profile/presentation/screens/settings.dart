@@ -19,13 +19,13 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Color(0xFFFDFDFD),
+      backgroundColor: const Color(0xFFFDFDFD),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 10,
-            left: 20,
-            right: 20,
+            left: 16,
+            right: 16,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

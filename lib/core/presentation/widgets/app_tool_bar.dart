@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:news_app/core/presentation/theme/color.dart';
-import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/pop_widget.dart';
 
+// ignore: must_be_immutable
 class AppToolBar extends StatelessWidget {
   AppToolBar({
     super.key,
@@ -33,19 +32,7 @@ class AppToolBar extends StatelessWidget {
           ),
         ),
         isSuffix
-            ? Clickable(
-                onPressed: suffixOnTap!,
-                child: Container(
-                    height: 44,
-                    width: 44,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 8,
-                    ),
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: whiteColor),
-                    child: suffixIcon!),
-              )
+            ? suffixIcon!
             : Container(
                 height: 32,
                 width: 32,

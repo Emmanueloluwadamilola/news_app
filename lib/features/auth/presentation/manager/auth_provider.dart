@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:logger/logger.dart';
 import 'package:news_app/core/di/core_module_container.dart';
 import 'package:news_app/core/presentation/manager/custom_provider.dart';

@@ -13,9 +13,7 @@ class _ApiManager implements ApiManager {
     this._dio, {
     this.baseUrl,
     this.errorLogger,
-  }) {
-    baseUrl ??= 'https://newsapi.org/v2/top-headlines?';
-  }
+  });
 
   final Dio _dio;
 
@@ -36,7 +34,122 @@ class _ApiManager implements ApiManager {
     )
         .compose(
           _dio.options,
-          'language=en&apiKey=65209a3149954c6e84e8894507c9202d',
+          'https://newsapi.org/v2/top-headlines?language=en&apiKey=65209a3149954c6e84e8894507c9202d',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late FetchNewsDto _value;
+    try {
+      _value = FetchNewsDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<NewsSourceDto> fetchNewsSource() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<NewsSourceDto>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'https://newsapi.org/v2/top-headlines/sources?language=en&apiKey=65209a3149954c6e84e8894507c9202d',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late NewsSourceDto _value;
+    try {
+      _value = NewsSourceDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<FetchNewsDto> fetchNewsByCategory({
+    String language = selectedLanguage,
+    required String category,
+    String apiKey = apiKeyNewsDataApi,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'language': language,
+      r'category': category,
+      r'apiKey': apiKey,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<FetchNewsDto>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'https://newsapi.org/v2/top-headlines',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late FetchNewsDto _value;
+    try {
+      _value = FetchNewsDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<FetchNewsDto> fetchNewsByQuery({
+    String language = selectedLanguage,
+    required String keyword,
+    String apiKey = apiKeyNewsDataApi,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'language': language,
+      r'q': keyword,
+      r'apiKey': apiKey,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<FetchNewsDto>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'https://newsapi.org/v2/everything',
           queryParameters: queryParameters,
           data: _data,
         )

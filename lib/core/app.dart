@@ -7,6 +7,7 @@ import 'package:news_app/features/auth/presentation/screens/otp_screen.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
 import 'package:news_app/features/explore/presentation/manager/explore_provider.dart';
+import 'package:news_app/features/favourite/presentation/manager/favourite_provider.dart';
 import 'package:news_app/features/home/presentation/manager/home_provider.dart';
 import 'package:news_app/features/home/presentation/screen/index_screen.dart';
 import 'package:news_app/features/home/presentation/screen/interest.dart';
@@ -26,6 +27,7 @@ class App extends StatelessWidget with AppTheme {
       providers: [
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => ExploreProvider()),
+        ChangeNotifierProvider(create: (_) => FavouriteProvider()),
       ],
       child: ChangeNotifierProvider(
         create: (_) => ThemeProvider(),
@@ -59,7 +61,7 @@ class App extends StatelessWidget with AppTheme {
                   EditProfileScreen.id: (context) => const EditProfileScreen(),
                   ChangePasswordScreen.id: (context) =>
                       const ChangePasswordScreen(),
-
+                      
                   // HomeScreen.id: (context) => const HomeScreen(),
                   // DashboardScreen.id: (context) => const DashboardScreen(),
                   // ForgotPasswordScreen.id: (context) =>

@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:news_app/core/config/config.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/app_logo.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
-import 'package:news_app/features/home/presentation/screen/home_screen.dart';
+
 import 'package:news_app/features/home/presentation/screen/index_screen.dart';
 import 'package:news_app/features/onboarding/manager/splash_provider.dart';
 import 'package:news_app/features/onboarding/presentation/onboarding_screen.dart';
@@ -34,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
             context.pushNamed(SignInScreen.id);
           }
         } else {
+          user = FirebaseAuth.instance.currentUser;
           context.pushNamedReplacement(IndexScreen.id);
         }
       });

@@ -1,6 +1,4 @@
-import 'dart:ffi';
 
-import 'package:injectable/injectable.dart';
 import 'package:news_app/core/domain/api_response/api_result.dart';
 import 'package:news_app/core/domain/usecase/usecase.dart';
 import 'package:news_app/features/home/domain/entities/model/fetch_news.dart';
