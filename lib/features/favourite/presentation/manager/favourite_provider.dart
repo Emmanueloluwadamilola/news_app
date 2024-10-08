@@ -1,9 +1,7 @@
-import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
-
-import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:news_app/core/di/core_module_container.dart';
 import 'package:news_app/core/presentation/manager/custom_provider.dart';
+import 'package:news_app/features/favourite/data/dto/news_article_dto.dart';
 import 'package:news_app/features/favourite/domain/entity/model/favourite_model.dart';
 import 'package:news_app/features/favourite/domain/repository/favourite_repository.dart';
 import 'package:news_app/features/favourite/domain/usecase/add_favourite_usecase.dart';
@@ -23,8 +21,8 @@ class FavouriteProvider extends CustomProvider {
     required String url,
     required String urlToImage,
     required DateTime publishedAt,
-  }) {
-    state.favouriteNews.add(NewsArticle(
+  }) async {
+    final article = NewsArticleDto.fromNewsArticle(NewsArticle(
         source: source,
         author: author,
         title: title,
@@ -32,10 +30,11 @@ class FavouriteProvider extends CustomProvider {
         urlToImage: urlToImage,
         publishedAt: publishedAt,
         content: content));
+    state.favouriteNews.add(article);
     state.isFavourite = true;
     notifyListeners();
 
-    AddFavouriteUsecase(
+    await AddFavouriteUsecase(
       repo,
       NewsArticle(
         source: source,
@@ -55,7 +54,7 @@ class FavouriteProvider extends CustomProvider {
       });
       if (response != null) {
         add(0);
-         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> add favourite');
+        Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> add favourite');
       }
     });
   }
@@ -95,7 +94,11 @@ class FavouriteProvider extends CustomProvider {
       if (response != null) {
         add(response);
         state.favouriteNews = response;
-         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> fetch favourite news');
+        for (int i = 0; i < state.favouriteNews.length; i++) {
+          state.newsTitles.add(response[i].title!);
+        }
+
+        Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> fetch favourite news');
       }
       state.isLoading = false;
       notifyListeners();
@@ -103,11 +106,15 @@ class FavouriteProvider extends CustomProvider {
   }
 
   setFavourite({required String title}) {
-    for (int i = 0; i < state.favouriteNews.length; i++) {
-      state.favouriteNews[i].title!.contains(title);
+    if (state.newsTitles.contains(title)) {
+      Logger().d('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $title');
       state.isFavourite = true;
       notifyListeners();
+    } else {
+      state.isFavourite = false;
+      notifyListeners();
     }
-    Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+
+    Logger().d('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${state.isFavourite}');
   }
 }

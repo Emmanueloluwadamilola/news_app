@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:news_app/core/di/core_module_container.dart';
 import 'package:news_app/core/domain/api_response/api_result.dart';
 import 'package:news_app/features/favourite/data/dto/news_article_dto.dart';
@@ -13,17 +14,41 @@ class FavouriteRepositoryImpl implements FavouriteRepository {
 
   @override
   Future<ApiResult<List<NewsArticle>>> fetchFavourite() async {
-    return await remoteDatasource.fetchFavouriteNews();
+    // try {
+    final result = await remoteDatasource.fetchFavouriteNews();
+    return ApiResult.success(result);
+    // } catch (e) {
+    //   return ApiResult.failure(e);
+    // }
   }
 
   @override
   Future<ApiResult<AddFavouriteModel>> addFavourite(NewsArticle param) async {
-    return await remoteDatasource
-        .addFavouriteNews(NewsArticleDto.fromEntity(param));
+    try {
+    final payload = NewsArticleDto.fromNewsArticle(param);
+    // NewsArticleDto(
+    //     source: param.source,
+    //     author: param.author,
+    //     content: param.content,
+    //     publishedAt: param.publishedAt,
+    //     title: param.title,
+    //     url: param.url,
+    //     urlToImage: param.urlToImage);
+    final result = await remoteDatasource.addFavouriteNews(payload);
+    Logger().i(result);
+    return ApiResult.success(result);
+    } catch (e) {
+      return ApiResult.failure(e);
+    }
   }
 
   @override
   Future<ApiResult<AddFavouriteModel>> deleteFavourite(ArticleId param) async {
-    return await remoteDatasource.deleteFavouriteNews(param);
+    try {
+      final result = await remoteDatasource.deleteFavouriteNews(param);
+      return ApiResult.success(result);
+    } catch (e) {
+      return ApiResult.failure(e);
+    }
   }
 }

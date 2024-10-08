@@ -45,7 +45,7 @@ class _FullNewsScreenState extends State<FullNewsScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _favouriteProvider?.setFavourite(title: widget.title);
+      await _favouriteProvider?.setFavourite(title: widget.title);
     });
     super.initState();
   }
@@ -71,11 +71,12 @@ class _FullNewsScreenState extends State<FullNewsScreen> {
                   suffixIcon: Row(
                     children: [
                       Clickable(
-                        onPressed: () {
-                          favouriteState.isFavourite
-                              ? favouriteProvider.deleteFavourite(
+                        onPressed: () async {
+                      
+                          favouriteState.isFavourite == true
+                              ? await favouriteProvider.deleteFavourite(
                                   title: widget.title)
-                              : favouriteProvider.addFavourite(
+                              : await favouriteProvider.addFavourite(
                                   source: widget.newsSource,
                                   title: widget.title,
                                   content: widget.content,

@@ -55,76 +55,95 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   suffixOnTap: () {},
                 ),
                 const Gap(20),
-                state.favouriteNews.isEmpty
-                    ? const Expanded(
-                        child: Center(
-                          child: SvgImage(
-                            asset: icEmpty,
-                            height: 200,
+                state.isLoading
+                    ? Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: List.generate(
+                                5,
+                                (index) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 15),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 200,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color: theme.colorScheme.tertiary
+                                                  .withOpacity(0.5),
+                                            ),
+                                          ),
+                                          const Gap(10),
+                                          Container(
+                                            height: 20,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: theme.colorScheme.tertiary
+                                                  .withOpacity(0.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          const Gap(10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                height: 20,
+                                                width: 150,
+                                                decoration: BoxDecoration(
+                                                  color: theme
+                                                      .colorScheme.tertiary
+                                                      .withOpacity(0.5),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 20,
+                                                width: 150,
+                                                decoration: BoxDecoration(
+                                                  color: theme
+                                                      .colorScheme.tertiary
+                                                      .withOpacity(0.5),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                          .animate(
+                                              onPlay: (controller) => controller
+                                                  .repeat(reverse: true))
+                                          .shimmer(
+                                              delay: 400.ms,
+                                              duration: 1800.ms,
+                                              color: Colors.white),
+                                    )),
                           ),
                         ),
                       )
-                    : state.isLoading
-                        ? Column(
-                            children: [
-                              Container(
+                    : state.favouriteNews.isEmpty
+                        ? const Expanded(
+                            child: Center(
+                              child: SvgImage(
+                                asset: icEmpty,
                                 height: 200,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: theme.colorScheme.tertiary
-                                      .withOpacity(0.5),
-                                ),
                               ),
-                              const Gap(10),
-                              Container(
-                                height: 20,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: theme.colorScheme.tertiary
-                                      .withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              const Gap(10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 20,
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                      color: theme.colorScheme.tertiary
-                                          .withOpacity(0.5),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 20,
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                      color: theme.colorScheme.tertiary
-                                          .withOpacity(0.5),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
+                            ),
                           )
-                            .animate(
-                                onPlay: (controller) =>
-                                    controller.repeat(reverse: true))
-                            .shimmer(
-                                delay: 400.ms,
-                                duration: 1800.ms,
-                                color: Colors.white)
                         : Expanded(
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(10, (index) {
+                                children: List.generate(
+                                    state.favouriteNews.length, (index) {
                                   final favourite = state.favouriteNews[index];
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 35),
