@@ -11,23 +11,28 @@ part 'api_manager.g.dart';
 abstract class ApiManager {
   factory ApiManager(Dio dio, {String baseUrl}) = _ApiManager;
 
-  @GET('${newsData}language=en&apiKey=$apiKeyNewsDataApi')
-  Future<FetchNewsDto> fetchNews();
+  @GET('https://newsapi.org/v2/top-headlines')
+  Future<FetchNewsDto> fetchNews({
+    @Query('language') required String language,
+    @Query('apiKey') String apiKey = apiKeyNewsDataApi,
+  });
 
-  @GET(
-      'https://newsapi.org/v2/top-headlines/sources?language=$selectedLanguage&apiKey=$apiKeyNewsDataApi')
-  Future<NewsSourceDto> fetchNewsSource();
+  @GET('https://newsapi.org/v2/top-headlines/sources')
+  Future<NewsSourceDto> fetchNewsSource({
+    @Query('language') required String language,
+    @Query('apiKey') String apiKey = apiKeyNewsDataApi,
+  });
 
   @GET('https://newsapi.org/v2/top-headlines')
   Future<FetchNewsDto> fetchNewsByCategory({
-    @Query('language') String language = selectedLanguage,
+    @Query('language') required String language,
     @Query('category') required String category,
     @Query('apiKey') String apiKey = apiKeyNewsDataApi,
   });
 
   @GET('https://newsapi.org/v2/everything')
   Future<FetchNewsDto> fetchNewsByQuery({
-    @Query('language') String language = selectedLanguage,
+    @Query('language') required String language,
     @Query('q') required String keyword,
     @Query('apiKey') String apiKey = apiKeyNewsDataApi,
   });

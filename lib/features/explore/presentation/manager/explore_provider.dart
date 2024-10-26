@@ -1,7 +1,7 @@
 import 'package:news_app/core/di/core_module_container.dart';
+import 'package:news_app/core/domain/util/util.dart';
 import 'package:news_app/core/presentation/manager/custom_provider.dart';
 import 'package:news_app/features/explore/domain/entities/param/category_param.dart';
-import 'package:news_app/features/explore/domain/entities/param/query_param.dart';
 import 'package:news_app/features/explore/domain/repository/repository.dart';
 import 'package:news_app/features/explore/domain/usecase/news_category_usecase.dart';
 import 'package:news_app/features/explore/domain/usecase/news_query_usecase.dart';
@@ -25,7 +25,7 @@ class ExploreProvider extends CustomProvider {
     state.isLoading = true;
     notifyListeners();
 
-    NewsCategoryUsecase(repo, CategoryPayload(category: category))
+    NewsCategoryUsecase(repo, CategoryPayload(category: category, language: selectedLanguage!))
         .invoke()
         .then((value) {
       final response = value.getOrElse((error) {

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/circular_icon.dart';
-import 'package:news_app/core/presentation/widgets/custom_button.dart';
-import 'package:news_app/core/presentation/widgets/input_field.dart';
 import 'package:news_app/core/presentation/widgets/modal_center_drag.dart';
 
 class SuccessfulModal extends StatelessWidget {

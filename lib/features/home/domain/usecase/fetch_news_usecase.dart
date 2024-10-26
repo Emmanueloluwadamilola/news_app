@@ -10,11 +10,9 @@ class FetchNewsUsecase implements UseCase<List<Article>, void> {
   FetchNewsUsecase(this.repository);
   @override
   Future<ApiResult<List<Article>>> invoke() {
-    // TODO: implement invoke
     return repository.fetchNews();
   }
 
   @override
-  // TODO: implement param
   get param => throw UnimplementedError();
 }

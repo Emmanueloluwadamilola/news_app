@@ -1,3 +1,4 @@
+import 'package:news_app/core/domain/util/util.dart';
 import 'package:news_app/features/explore/domain/entities/param/query_param.dart';
 import 'package:news_app/features/home/domain/entities/model/fetch_news.dart';
 
@@ -20,6 +21,6 @@ class ExploreState {
   List<Article> newsFeed = [];
 
   QueryPayload toQuery() {
-    return QueryPayload(query: keyword);
+    return QueryPayload(query: keyword, language: selectedLanguage!);
   }
 }

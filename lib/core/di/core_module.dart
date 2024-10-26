@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:news_app/services/api_service/api_manager.dart';
 import 'package:news_app/services/api_service/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 @module
 abstract class CoreModule {
@@ -26,8 +27,8 @@ abstract class CoreModule {
   @singleton
   FirebaseFirestore get firestore => FirebaseFirestore.instance;
 
-  @singleton 
-  // FavouriteRemoteDatasource get remoteDataSource => FavouriteRemoteDatasource()
+  @singleton
+  FirebaseStorage get storage => FirebaseStorage.instance;
 
   Future<SharedPreferences> preferences() {
     return SharedPreferences.getInstance();

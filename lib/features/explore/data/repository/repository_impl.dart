@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:news_app/core/di/core_module_container.dart';
 import 'package:news_app/core/domain/api_response/api_result.dart';
+import 'package:news_app/core/domain/util/util.dart';
 import 'package:news_app/features/explore/domain/entities/param/category_param.dart';
 import 'package:news_app/features/explore/domain/entities/param/query_param.dart';
 import 'package:news_app/features/explore/domain/repository/repository.dart';
@@ -14,7 +15,7 @@ class ExploreRepositoryImpl implements ExploreRepository {
   Future<ApiResult<List<Article>>> fetchNewsByCategory(
       CategoryPayload param) async {
     try {
-      final result = await api.fetchNewsByCategory(category: param.category);
+      final result = await api.fetchNewsByCategory(category: param.category, language: selectedLanguage!);
       return ApiResult.success(
           result.articles.map((e) => e.toArticle()).toList());
     } catch (e) {
@@ -25,7 +26,7 @@ class ExploreRepositoryImpl implements ExploreRepository {
   @override
   Future<ApiResult<List<Article>>> fetchNewsByQuery(QueryPayload param) async {
     try {
-      final result = await api.fetchNewsByQuery(keyword: param.query);
+      final result = await api.fetchNewsByQuery(keyword: param.query, language: selectedLanguage!);
       return ApiResult.success(
           result.articles.map((e) => e.toArticle()).toList());
     } catch (e) {

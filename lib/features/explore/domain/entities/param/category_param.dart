@@ -7,7 +7,7 @@ class CategoryPayload {
 
   CategoryPayload({
     required this.category,
-    this.language = selectedLanguage,
+   required this.language,
     this.apikey = apiKeyNewsDataApi,
   });
 }

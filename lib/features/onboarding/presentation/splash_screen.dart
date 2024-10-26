@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:logger/logger.dart';
 import 'package:news_app/core/config/config.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
@@ -8,6 +10,7 @@ import 'package:news_app/core/presentation/widgets/app_logo.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 
 import 'package:news_app/features/home/presentation/screen/index_screen.dart';
+import 'package:news_app/features/auth/presentation/screens/language_screen.dart';
 import 'package:news_app/features/onboarding/manager/splash_provider.dart';
 import 'package:news_app/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:provider/provider.dart';
@@ -27,16 +30,24 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _provider?.listen((event) {
+        //  Logger().i('>>>>>>>>>>>>>>>. $event');
         if (FirebaseAuth.instance.currentUser == null) {
+          Logger().i('>>>>>>>>>>>>>>>. $event');
           if (event == 0) {
             context.pushNamedReplacement(OnboardingScreen.id);
+          } else if (event == -1) {
+            context.pushNamedReplacement(LanguageScreen.id);
           } else if (event == 1) {
             // context.pushNamedReplacement(OnboardingScreen.id);
-            context.pushNamed(SignInScreen.id);
+            context.pushNamedReplacement(SignInScreen.id);
           }
         } else {
           user = FirebaseAuth.instance.currentUser;
-          context.pushNamedReplacement(IndexScreen.id);
+          if (event == -1) {
+            context.pushNamedReplacement(LanguageScreen.id);
+          } else {
+            context.pushNamedReplacement(IndexScreen.id);
+          }
         }
       });
     });

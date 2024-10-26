@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:news_app/core/presentation/res/drawables.dart';
-import 'package:news_app/core/presentation/theme/color.dart';
-import 'package:news_app/core/presentation/widgets/custom_image.dart';
-import 'package:news_app/core/presentation/widgets/svg_image.dart';
+import 'package:news_app/core/presentation/widgets/cached_image.dart';
 
 class HotNewsWidget extends StatelessWidget {
   const HotNewsWidget(
@@ -42,16 +39,13 @@ class HotNewsWidget extends StatelessWidget {
                     16,
                   ),
                 ),
-                child: imageUrl != 'null'
-                    ? Image.network(
-                        imageUrl!,
-                        fit: BoxFit.fill,
-                      )
-                    : const CustomImage(
-                        asset: imgNews,
-                        fit: BoxFit.fill,
-                        width: double.infinity,
-                      ),
+                child: 
+                     CachedImage(imageUrl: imageUrl!)
+                    // : const CustomImage(
+                    //     asset: imgNews,
+                    //     fit: BoxFit.fill,
+                    //     width: double.infinity,
+                    //   ),
               ),
             ),
           ),

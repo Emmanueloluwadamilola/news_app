@@ -13,6 +13,5 @@ class FetchFavouriteNewsUsecase implements UseCase<List<NewsArticle>, void> {
   }
 
   @override
-  // TODO: implement param
   void get param => throw UnimplementedError();
 }

@@ -7,11 +7,17 @@ import 'package:news_app/features/favourite/domain/repository/favourite_reposito
 import 'package:news_app/features/favourite/domain/usecase/add_favourite_usecase.dart';
 import 'package:news_app/features/favourite/domain/usecase/delete_favorite_usecase.dart';
 import 'package:news_app/features/favourite/domain/usecase/fetch_favourite_news_usecase.dart';
+import 'package:news_app/features/favourite/domain/util/util.dart';
 import 'package:news_app/features/favourite/presentation/manager/favourite_state.dart';
+import 'package:share_plus/share_plus.dart';
 
 class FavouriteProvider extends CustomProvider {
   final repo = getIt.get<FavouriteRepository>();
   var state = FavouriteState();
+
+  shareNews(String url) async {
+    await Share.shareUri(Uri.parse(url));
+  }
 
   addFavourite({
     required String source,
@@ -54,6 +60,7 @@ class FavouriteProvider extends CustomProvider {
       });
       if (response != null) {
         add(0);
+        favouriteNewsLength += 1;
         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> add favourite');
       }
     });
@@ -76,7 +83,8 @@ class FavouriteProvider extends CustomProvider {
 
       if (response != null) {
         add(1);
-         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> delete fvaaourite');
+          favouriteNewsLength -= 1;
+        Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> delete fvaaourite');
       }
     });
   }
@@ -97,6 +105,8 @@ class FavouriteProvider extends CustomProvider {
         for (int i = 0; i < state.favouriteNews.length; i++) {
           state.newsTitles.add(response[i].title!);
         }
+
+        favouriteNewsLength = state.favouriteNews.length;
 
         Logger().i('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> fetch favourite news');
       }

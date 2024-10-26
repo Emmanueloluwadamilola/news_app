@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/di/core_module_container.dart';
@@ -10,12 +12,13 @@ import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/custom_loading_widget.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
 import 'package:news_app/core/presentation/widgets/provider_widget.dart';
+import 'package:news_app/core/presentation/widgets/toast_widget.dart';
 import 'package:news_app/core/presentation/widgets/transparent_button.dart';
 import 'package:news_app/features/auth/presentation/manager/auth_provider.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_up.dart';
 import 'package:news_app/features/auth/presentation/screens/widgets/forgot_password.dart';
 import 'package:news_app/features/home/presentation/screen/index_screen.dart';
-import 'package:news_app/features/home/presentation/screen/interest.dart';
+import 'package:news_app/features/auth/presentation/screens/language_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -32,14 +35,31 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      selectedLanguage = (await _pref).getString(languageKey);
       _provider?.listen((event) async {
-        if (event == 1) {
+        if (event is String) {
+          ToastMessage().displayPopup(
+            context: context,
+            text: event,
+            type: PopupType.failure,
+          );
+        } else if (event == 1) {
           _pref.then((value) {
-            if (value.getBool(interestKey) == null) {
-              context.pushNamed(InterestScreen.id);
+            if (selectedLanguage == null) {
+              context.pushNamed(LanguageScreen.id);
+              ToastMessage().displayPopup(
+                context: context,
+                text: 'Set your preferred language',
+                type: PopupType.success,
+              );
               // return;
             } else {
               context.pushNamed(IndexScreen.id);
+              ToastMessage().displayPopup(
+                context: context,
+                text: 'Login successful',
+                type: PopupType.success,
+              );
             }
           });
         }
@@ -48,11 +68,11 @@ class _SignInScreenState extends State<SignInScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _provider?.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _provider?.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -108,9 +128,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       icon: Icons.lock_outline,
                       isPassword: true,
                       onChange: (value) {
-                        setState(() {
-                          state.password = value;
-                        });
+                        provider.setPassword(value);
+                        // setState(() {
+                        //   state.password = value;
+                        // });
                       },
                     ),
                     const Gap(15),
@@ -139,8 +160,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     const Gap(30),
                     CustomButton(
                       onTap: () {
-                        provider.signIn().then((value) {
-                        state.isLoading ? customLoader.showLoader() : null;
+                        customLoader.showLoader();
+                        provider.signIn().whenComplete(() {
+                          customLoader.hide();
                         });
                       },
                       title: 'Login',

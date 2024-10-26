@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
@@ -131,6 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       const Gap(20),
                       Clickable(
                         onPressed: () {
+                          provider.setOnboarding();
                           context.pushNamed(SignInScreen.id);
                         },
                         child: Text(

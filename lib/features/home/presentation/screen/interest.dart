@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
-import 'package:news_app/core/presentation/widgets/clickable.dart';
 import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/features/home/presentation/manager/home_provider.dart';
 import 'package:news_app/features/home/presentation/screen/index_screen.dart';

@@ -7,7 +7,7 @@ class QueryPayload {
 
   QueryPayload({
     required this.query,
-    this.language = selectedLanguage,
+   required this.language,
     this.apikey = apiKeyNewsDataApi,
   });
 }

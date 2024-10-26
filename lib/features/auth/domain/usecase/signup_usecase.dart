@@ -5,18 +5,16 @@ import 'package:news_app/features/auth/domain/entity/payload/auth_payload.dart';
 import 'package:news_app/features/auth/domain/repository/auth_repository.dart';
 
 
-class SignupUsecase implements UseCase<UserCredential, AuthPayload> {
+class SignupUsecase implements UseCase<User, AuthPayload> {
   late AuthRepository repository;
 
   SignupUsecase(this.repository, this.param);
 
   @override
-  Future<ApiResult<UserCredential>> invoke() {
-    // TODO: implement invoke
+  Future<ApiResult<User>> invoke() {
     return repository.signUp(param);
   }
   
   @override
-  // TODO: implement param
   AuthPayload param;
 }

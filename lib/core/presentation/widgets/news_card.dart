@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:news_app/core/presentation/res/drawables.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
-import 'package:news_app/core/presentation/widgets/custom_image.dart';
+import 'package:news_app/core/presentation/widgets/cached_image.dart';
 
 class NewsCardWidget extends StatelessWidget {
   const NewsCardWidget({
@@ -22,8 +21,8 @@ class NewsCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      height: 120,
+    return SizedBox(
+      height: 140,
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
@@ -34,17 +33,7 @@ class NewsCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               color: whiteColor,
             ),
-            child: imageUrl != 'null'
-                ? Image.network(
-                    imageUrl,
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                  )
-                : const CustomImage(
-                    asset: imgNews,
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                  ),
+            child: CachedImage(imageUrl: imageUrl)
           ),
         ),
         const Gap(10),
@@ -65,52 +54,6 @@ class NewsCardWidget extends StatelessWidget {
             ],
           ),
         ),
-        // Column(
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Flexible(
-        //           child: Column(
-        //             children: [
-        //               Text(
-        //                 title,
-        //                 maxLines: 2,
-        //                 textAlign: TextAlign.justify,
-        //                 overflow: TextOverflow.ellipsis,
-        //                 softWrap: true,
-        //                 style: theme.textTheme.titleLarge!
-        //                     .copyWith(fontSize: 18, color: darkText),
-        //               ),
-        //               const Gap(10),
-        //               Row(
-        //                 children: [
-        //                   Text(
-        //                     author,
-        //                     style: theme.textTheme.labelMedium!
-        //                         .copyWith(fontSize: 14, color: darkText),
-        //                   ),
-        //                   // const Gap(10),
-        //                   // Text(
-        //                   //   time,
-        //                   //   style: theme.textTheme.labelMedium!
-        //                   //       .copyWith(fontSize: 12, color: whiteColor),
-        //                   // ),
-        //                 ],
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //         const Gap(10),
-        //         // Container(
-        //         //   height: 120,
-        //         //   width: 120,
-        //         //   decoration: BoxDecoration(
-        //         //       borderRadius: BorderRadius.circular(12), color: blueColor),
-        //         // )
-        //       ],
-        //     ),
-        //   ],
-        // ),
       ]),
     );
   }

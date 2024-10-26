@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:news_app/core/presentation/res/drawables.dart';
-import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/app_tool_bar.dart';
-import 'package:news_app/core/presentation/widgets/clickable.dart';
-import 'package:news_app/core/presentation/widgets/svg_image.dart';
+import 'package:news_app/core/presentation/widgets/dialog_box.dart';
+import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
+import 'package:news_app/features/auth/presentation/screens/language_screen.dart';
+import 'package:news_app/features/home/domain/util/util.dart';
 import 'package:news_app/features/profile/presentation/screens/change_password.dart';
 import 'package:news_app/features/profile/presentation/screens/edit_profile.dart';
 import 'package:news_app/features/profile/presentation/screens/widgets/settings_card.dart';
@@ -75,7 +76,11 @@ class SettingsScreen extends StatelessWidget {
                         iconData: Icons.privacy_tip_outlined,
                       ),
                       SettingsCard(
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(
+                            LanguageScreen.id,
+                          );
+                        },
                         title: 'Language',
                         iconData: Icons.language_outlined,
                       ),
@@ -98,7 +103,27 @@ class SettingsScreen extends StatelessWidget {
                         iconData: Icons.live_help_outlined,
                       ),
                       SettingsCard(
-                        onTap: () {},
+                        onTap: () async {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return DeleteDialog(
+                                  delete: () async {
+                                    await FirebaseAuth.instance.signOut().then(
+                                      (value) {
+                                        // ignore: use_build_context_synchronously
+                                        initials = '';
+
+                                        context
+                                            .pushNamedAndClear(SignInScreen.id);
+                                      },
+                                    );
+                                  },
+                                  title: 'Are you sure you want to log out?',
+                                  actionText: 'Proceed',
+                                );
+                              });
+                        },
                         title: 'Logout',
                         iconData: Icons.logout_outlined,
                         isLogOut: true,

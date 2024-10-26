@@ -8,9 +8,10 @@ import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/custom_loading_widget.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
 import 'package:news_app/core/presentation/widgets/provider_widget.dart';
+import 'package:news_app/core/presentation/widgets/toast_widget.dart';
 import 'package:news_app/core/presentation/widgets/transparent_button.dart';
 import 'package:news_app/features/auth/presentation/manager/auth_provider.dart';
-import 'package:news_app/features/auth/presentation/screens/otp_screen.dart';
+import 'package:news_app/features/auth/presentation/screens/language_screen.dart';
 import 'package:news_app/features/auth/presentation/screens/sign_in.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -27,19 +28,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _provider?.listen((event) {
-        if (event == 1) {
-          context.pushNamed(OtpScreen.id);
+        if (event is String) {
+          ToastMessage().displayPopup(
+            context: context,
+            text: event,
+            type: PopupType.failure,
+          );
+        } else if (event == 1) {
+          context.pushNamed(LanguageScreen.id);
+          ToastMessage().displayPopup(
+            context: context,
+            text: 'Set your preferred language',
+            type: PopupType.success,
+          );
         }
       });
     });
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _provider?.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _provider?.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +114,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const Gap(30),
                     CustomButton(
                       onTap: () {
-                        provider.signUp().then((value) {
-                          customLoader.showLoader();
+                        customLoader.showLoader();
+                        provider.signUp().whenComplete(() {
+                          customLoader.hide();
                         });
                       },
                       title: 'Create Account',

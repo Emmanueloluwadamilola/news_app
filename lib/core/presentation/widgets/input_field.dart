@@ -14,11 +14,13 @@ class InputField extends TextFieldParent {
     super.isPassword,
     required this.icon,
     this.keyboardType = TextInputType.name,
+    this.errorText,
   });
   final String inputFieldLabel;
   final String hint;
   final IconData icon;
   final TextInputType keyboardType;
+  final String? errorText;
 
   @override
   TextFieldState<InputField> createState() => _InputFieldState();
@@ -63,35 +65,36 @@ class _InputFieldState extends TextFieldState<InputField> {
             ),
             onTap: () {},
             decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(
-                  top: 12,
-                ),
-                border: InputBorder.none,
-                suffixIcon: widget.isPassword
-                    ? Clickable(
-                        onPressed: () {
-                          setState(() {
-                            isPasswordVissible = !isPasswordVissible;
-                          });
-                        },
-                        child: Icon(
-                          isPasswordVissible
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color:
-                              controller.text.isEmpty ? lowEmphasis : blueColor,
-                        ),
-                      )
-                    : null,
-                prefixIcon: Icon(
-                  widget.icon,
-                  color: controller.text.isEmpty ? lowEmphasis : blueColor,
-                ),
-                hintText: widget.hint,
-                hintStyle: const TextStyle(
-                  color: lowEmphasis,
-                  fontFamily: 'regular',
-                ),),
+              contentPadding: const EdgeInsets.only(
+                top: 12,
+              ),
+              border: InputBorder.none,
+              suffixIcon: widget.isPassword
+                  ? Clickable(
+                      onPressed: () {
+                        setState(() {
+                          isPasswordVissible = !isPasswordVissible;
+                        });
+                      },
+                      child: Icon(
+                        isPasswordVissible
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color:
+                            controller.text.isEmpty ? lowEmphasis : blueColor,
+                      ),
+                    )
+                  : null,
+              prefixIcon: Icon(
+                widget.icon,
+                color: controller.text.isEmpty ? lowEmphasis : blueColor,
+              ),
+              hintText: widget.hint,
+              hintStyle: const TextStyle(
+                color: lowEmphasis,
+                fontFamily: 'regular',
+              ),
+            ),
           ),
         ),
       ],

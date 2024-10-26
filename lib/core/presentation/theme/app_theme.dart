@@ -47,6 +47,6 @@ mixin AppTheme {
   }
 
   ThemeData darkTheme() {
-    return ThemeData.from(colorScheme: ColorScheme.dark());
+    return ThemeData.from(colorScheme: const ColorScheme.dark());
   }
 }

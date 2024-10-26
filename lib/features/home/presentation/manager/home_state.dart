@@ -1,4 +1,3 @@
-
 import 'package:news_app/core/config/config.dart';
 
 import 'package:news_app/core/presentation/res/drawables.dart';
@@ -9,8 +8,9 @@ import 'package:news_app/features/home/domain/entities/model/news_source.dart';
 class HomeState {
   bool isLoading = false;
   bool newsSorceLoading = false;
-  String? userName =
-      user!.displayName?.split(' ')[0];
+  String? userName = userInfo.displayName?.split(' ')[0];
+  String? firstName = userInfo.displayName?.split(' ')[1];
+
 
   List<LatestNews> latestNews = [];
   List<Article> news = [];
@@ -26,6 +26,7 @@ class HomeState {
     'Travel',
   ];
   List<NewsSource> newsMedia = [];
+
   List<String> interestImage = [
     imgFootball,
     imgCrypto,
@@ -49,5 +50,4 @@ class HomeState {
 
   List<int> selectedInterest = [];
 
-  int selectedIndex = 0;
 }

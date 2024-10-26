@@ -22,9 +22,15 @@ class _ApiManager implements ApiManager {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<FetchNewsDto> fetchNews() async {
+  Future<FetchNewsDto> fetchNews({
+    required String language,
+    String apiKey = apiKeyNewsDataApi,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'language': language,
+      r'apiKey': apiKey,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<FetchNewsDto>(Options(
@@ -34,7 +40,7 @@ class _ApiManager implements ApiManager {
     )
         .compose(
           _dio.options,
-          'https://newsapi.org/v2/top-headlines?language=en&apiKey=65209a3149954c6e84e8894507c9202d',
+          'https://newsapi.org/v2/top-headlines',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -55,9 +61,15 @@ class _ApiManager implements ApiManager {
   }
 
   @override
-  Future<NewsSourceDto> fetchNewsSource() async {
+  Future<NewsSourceDto> fetchNewsSource({
+    required String language,
+    String apiKey = apiKeyNewsDataApi,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'language': language,
+      r'apiKey': apiKey,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<NewsSourceDto>(Options(
@@ -67,7 +79,7 @@ class _ApiManager implements ApiManager {
     )
         .compose(
           _dio.options,
-          'https://newsapi.org/v2/top-headlines/sources?language=en&apiKey=65209a3149954c6e84e8894507c9202d',
+          'https://newsapi.org/v2/top-headlines/sources',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -89,7 +101,7 @@ class _ApiManager implements ApiManager {
 
   @override
   Future<FetchNewsDto> fetchNewsByCategory({
-    String language = selectedLanguage,
+    required String language,
     required String category,
     String apiKey = apiKeyNewsDataApi,
   }) async {
@@ -130,7 +142,7 @@ class _ApiManager implements ApiManager {
 
   @override
   Future<FetchNewsDto> fetchNewsByQuery({
-    String language = selectedLanguage,
+    required String language,
     required String keyword,
     String apiKey = apiKeyNewsDataApi,
   }) async {

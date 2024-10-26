@@ -1,0 +1,1 @@
+int favouriteNewsLength = 0;

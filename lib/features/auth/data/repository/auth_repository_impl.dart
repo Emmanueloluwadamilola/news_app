@@ -22,13 +22,15 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ApiResult<UserCredential>> signUp(AuthPayload param) async {
+  Future<ApiResult<User>> signUp(AuthPayload param) async {
     try {
-      final result = await api.createUserWithEmailAndPassword(
+      await api.createUserWithEmailAndPassword(
           email: param.email, password: param.password);
-      api.currentUser?.updateProfile(displayName: param.name);
-      user = result.user;
-      return ApiResult.success(result);
+
+     await api.currentUser?.updateProfile(displayName: param.name);
+
+     user = api.currentUser;
+      return ApiResult.success(user!);
     } catch (e) {
       return ApiResult.failure(e);
     }
