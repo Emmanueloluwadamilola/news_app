@@ -54,7 +54,7 @@ class ToastMessage {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   child: Material(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(8),
                     color: type == PopupType.success ? blueColor : Colors.red,
                     child: Padding(
                       padding:
@@ -64,8 +64,8 @@ class ToastMessage {
                         children: [
                           Icon(
                             success
-                                ? Icons.check_circle
-                                : Icons.remove_circle_outlined,
+                                ? Icons.done_all_outlined
+                                : Icons.cancel,
                             color: Colors.white,
                           ),
                           const SizedBox(

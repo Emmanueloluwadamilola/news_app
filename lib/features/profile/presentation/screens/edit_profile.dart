@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:logger/logger.dart';
+import 'package:news_app/core/config/config.dart';
 import 'package:news_app/core/presentation/theme/color.dart';
 import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/widgets/app_tool_bar.dart';
@@ -10,12 +11,13 @@ import 'package:news_app/core/presentation/widgets/custom_button.dart';
 import 'package:news_app/core/presentation/widgets/custom_image.dart';
 import 'package:news_app/core/presentation/widgets/custom_loading_widget.dart';
 import 'package:news_app/core/presentation/widgets/input_field.dart';
-import 'package:news_app/core/presentation/widgets/pop_widget.dart';
 import 'package:news_app/core/presentation/widgets/provider_widget.dart';
 import 'package:news_app/features/home/domain/util/util.dart';
 import 'package:news_app/features/profile/presentation/manager/profile_provider.dart';
 import 'package:news_app/features/profile/presentation/screens/widgets/profile_image.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../core/presentation/widgets/toast_widget.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const id = 'edit-profile';
@@ -45,6 +47,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _provider?.listen((event) {
       if (event == 1) {
         context.pop();
+        ToastMessage().displayPopup(
+          context: context,
+          text: 'Profile details updated',
+          type: PopupType.success,
+        );
       }
     });
     super.initState();
@@ -93,12 +100,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: Container(
                           height: 40,
                           width: 40,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: blueColor),
-                          child: const Icon(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: user!.photoURL == null ? whiteColor :blueColor),
+                          child:  Icon(
                             Icons.camera_alt_outlined,
                             size: 28,
-                            color: whiteColor,
+                            color: user!.photoURL == null ? blueColor: whiteColor,
                           ),
                         ),
                       ),
@@ -139,15 +146,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   _imageDialog(BuildContext context) {
     final theme = Theme.of(context);
     final dialog = Container(
-      height: 150,
-      width: MediaQuery.of(context).size.width * .5,
-      padding: const EdgeInsets.all(16),
+      height: 180,
+      width: MediaQuery.of(context).size.width * .8,
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: Center(
         child: Column(
           children: [
             Text('Choose where to select image from',
                 style: theme.textTheme.titleMedium?.copyWith(fontSize: 16)),
-            const Gap(10),
+            const Gap(15),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
