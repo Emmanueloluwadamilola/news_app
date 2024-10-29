@@ -25,6 +25,8 @@ A News app which uses NewsAPI to fetch news using retrofit, provider for state m
 - Cached network image
 - flutter animate
 
+Link to APK file -- https://drive.google.com/drive/folders/17iDfwAcJGEFCdM2gImKhTD3xpzl6_6x5?usp=sharing
+
 
 #
 ##
