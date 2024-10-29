@@ -6,9 +6,11 @@ import 'package:news_app/core/presentation/utils/navigation_mixin.dart';
 import 'package:news_app/core/presentation/utils/util.dart';
 import 'package:news_app/core/presentation/widgets/app_tool_bar.dart';
 import 'package:news_app/core/presentation/widgets/clickable.dart';
+import 'package:news_app/core/presentation/widgets/empty_widget.dart';
 import 'package:news_app/core/presentation/widgets/provider_widget.dart';
 import 'package:news_app/core/presentation/widgets/svg_image.dart';
 import 'package:news_app/features/favourite/presentation/manager/favourite_provider.dart';
+import 'package:news_app/features/favourite/presentation/screens/widget/favourite_shimmer.dart';
 import 'package:news_app/features/full_screen/presentation/screen/full_news_screen.dart';
 import 'package:news_app/features/home/presentation/screen/widgets/hot_news_widget.dart';
 
@@ -32,7 +34,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderWidget(
+    return ConsumerWidget(
         provider: FavouriteProvider(),
         children: (provider, theme) {
           _provider ??= provider;
@@ -55,80 +57,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: List.generate(
-                            5,
-                            (index) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 15),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        height: 200,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          color: theme.colorScheme.tertiary
-                                              .withOpacity(0.5),
-                                        ),
-                                      ),
-                                      const Gap(10),
-                                      Container(
-                                        height: 20,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: theme.colorScheme.tertiary
-                                              .withOpacity(0.5),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      const Gap(10),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            height: 20,
-                                            width: 150,
-                                            decoration: BoxDecoration(
-                                              color: theme.colorScheme.tertiary
-                                                  .withOpacity(0.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 20,
-                                            width: 150,
-                                            decoration: BoxDecoration(
-                                              color: theme.colorScheme.tertiary
-                                                  .withOpacity(0.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                      .animate(
-                                          onPlay: (controller) =>
-                                              controller.repeat(reverse: true))
-                                      .shimmer(
-                                          delay: 400.ms,
-                                          duration: 1800.ms,
-                                          color: Colors.white),
-                                )),
+                            5, (index) => const FavouriteNewsShimmer()),
                       ),
                     ),
                   )
                 : state.favouriteNews.isEmpty
                     ? const Expanded(
-                        child: Center(
-                          child: SvgImage(
-                            asset: icEmpty,
-                            height: 200,
-                          ),
-                        ),
+                        child: 
+                        EmptyWidget(height: 200,),
                       )
                     : Expanded(
                         child: SingleChildScrollView(
@@ -170,3 +106,4 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         });
   }
 }
+

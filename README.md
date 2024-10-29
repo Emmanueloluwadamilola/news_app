@@ -1,16 +1,44 @@
-# news_app
+# Pragraf
 
-A new Flutter project.
+## About App
+A News app which uses NewsAPI to fetch news using retrofit, provider for state management using clean code architecture. It uses Firebase for authencation ans firestore for favourite news storage.   
 
-## Getting Started
+### Functionalities
+- FirebaseAuth for authenticating users
+- Fetch news via NewsAPI 
+- Query news by different category and custom search using keywords
+- Add news as favourite using firestore
+- Url launch to read full news on news website
+- Url launch to visit news source website
+- Share news to others
+- Add your image as profile image
 
-This project is a starting point for a Flutter application.
+### Packages used
+- Provider
+- Firebase
+- image_picker
+- get_it
+- share_plus
+- shared_preference
+- Carousel slider
+- Retrofit
+- Cached network image
+- flutter animate
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+#
+##
+## Screenshots of App interface
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="assets/screenshots/splash.png" width="300" /> 1&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/onboard_1.png" width="300" /> 2&nbsp;&nbsp;&nbsp;  
+
+<img src="assets/screenshots/onboard_2.png" width="300" /> 5&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/onboard_3.png" width="300" /> 6&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/sign_up.png" width="300" />7&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/login.png" width="300" />
+
+<img src="assets/screenshots/loading.png.jpg" width="300" /> 9&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/language.png.jpg" width="300" /> 10&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/home.png" width="300" />11&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/source.png" width="300" />
+
+<img src="assets/screenshots/category_1.png" width="300" /> 1&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/category_2.png" width="300" /> 2&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/full_screen.png" width="300" />3&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/add_favourite.png" width="300" />
+
+<img src="assets/screenshots/share.png" width="300" /> 1&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/favourite.png" width="300" /> 2&nbsp;&nbsp;&nbsp;  
+
+<img src="assets/screenshots/profile.png" width="300" /> 5&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/settings.png." width="300" /> 6&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/profile_update.png" width="300" />7&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/log_out.png." width="300" />
+

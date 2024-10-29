@@ -70,7 +70,7 @@ class ProviderWidget<T extends CustomProvider> extends StatelessWidget {
 
 class ConsumerWidget<T extends CustomProvider> extends StatelessWidget {
   final List<Widget> Function(T, ThemeData) children;
-
+final double vertPadding;
   final double padding;
   final bool? resizeInsets;
   final T provider;
@@ -81,6 +81,7 @@ class ConsumerWidget<T extends CustomProvider> extends StatelessWidget {
     super.key,
     required this.children,
     this.padding = 20,
+    this.vertPadding = 20,
     this.resizeInsets,
     required this.provider,
     this.canPop = true,
@@ -98,7 +99,7 @@ class ConsumerWidget<T extends CustomProvider> extends StatelessWidget {
             resizeToAvoidBottomInset: resizeInsets,
             body: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: padding),
+                padding: EdgeInsets.symmetric(horizontal: padding, vertical: vertPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: children(provider, Theme.of(context)),
