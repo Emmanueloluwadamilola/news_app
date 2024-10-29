@@ -32,7 +32,7 @@ Link to APK file -- https://drive.google.com/drive/folders/17iDfwAcJGEFCdM2gImKh
 ##
 ## Screenshots of App interface
 
-<img src="assets/screenshots/splash.png" width="300" height="600" /> &nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/onboard_1.png" width="300" /> &nbsp;&nbsp;&nbsp; <img src="assets/screenshots/onboard_2.png" width="300" /> &nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/onboard_3.png" width="300" /> &nbsp;&nbsp;&nbsp;
+<img src="assets/screenshots/splash.png" width="300" /> &nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/onboard_1.png" width="300" /> &nbsp;&nbsp;&nbsp; <img src="assets/screenshots/onboard_2.png" width="300" /> &nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/onboard_3.png" width="300" /> &nbsp;&nbsp;&nbsp;
 
  <img src="assets/screenshots/sign_up.png" width="300" />&nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/login.png" width="300" /> &nbsp;&nbsp;&nbsp;
 <img src="assets/screenshots/loading.png" width="300" /> &nbsp;&nbsp;&nbsp;  <img src="assets/screenshots/language.png" width="300" /> &nbsp;&nbsp;&nbsp; 
